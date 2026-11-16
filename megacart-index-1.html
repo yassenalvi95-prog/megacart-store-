@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="MEGACART - Your online shopping store">
+<title>MEGACART | Online Shopping</title>
+<style>
+:root{--ink:#172033;--brand:#5b45d6;--accent:#ffb703;--bg:#f5f6fb;--muted:#667085}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 12px #17203312}
+.top{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{font-size:26px;font-weight:900;letter-spacing:1px;color:var(--brand);margin-right:auto}
+.search{flex:1;min-width:180px;display:flex}.search input{width:100%;padding:12px;border:1px solid #d9dce7;border-radius:10px 0 0 10px;font-size:15px}
+.search button,.cart,.owner-link{border:0;background:var(--brand);color:white;padding:12px 16px;border-radius:0 10px 10px 0;font-weight:bold}
+.cart,.owner-link{border-radius:10px;white-space:nowrap;cursor:pointer}
+nav{max-width:1100px;margin:auto;padding:0 20px 14px;display:flex;gap:20px;overflow:auto}
+nav a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:bold;white-space:nowrap}
+.hero{max-width:1100px;margin:24px auto;padding:42px 28px;border-radius:20px;background:linear-gradient(120deg,#302078,#765be8);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 10px}.hero p{color:#e8e3ff;line-height:1.5}
+.tag{display:inline-block;background:var(--accent);color:#302078;padding:8px 12px;border-radius:20px;font-weight:bold;font-size:13px}
+.hero .emoji{font-size:clamp(55px,10vw,100px)}
+main{max-width:1100px;margin:auto;padding:0 20px 40px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 16px;gap:10px}
+.section-head h2{margin:0;font-size:23px}.section-head span{color:var(--muted);font-size:13px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.category{background:#fff;border-radius:14px;padding:18px;text-align:center;font-weight:bold;box-shadow:0 3px 12px #17203308}
+.category b{display:block;font-size:30px;margin-bottom:8px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.product{background:#fff;border-radius:16px;padding:14px;box-shadow:0 3px 12px #17203308}
+.photo{height:130px;border-radius:12px;background:#f0edff;display:grid;place-items:center;font-size:58px}
+.product h3{font-size:16px;margin:12px 0 6px}.price{font-weight:900;color:var(--brand);margin-bottom:12px}
+.product button,.primary{width:100%;border:0;border-radius:9px;background:var(--ink);color:#fff;padding:11px;font-weight:bold;cursor:pointer}
+.notice{margin:28px 0;background:#fff;padding:18px;border-radius:14px;color:var(--muted);font-size:14px;line-height:1.6}
+.panel{background:#fff;border-radius:16px;padding:18px;margin:28px 0;box-shadow:0 3px 12px #17203308}
+.panel h2{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{padding:12px;border:1px solid #d9dce7;border-radius:9px;font-size:15px;width:100%}
+.panel .primary{background:var(--brand);margin-top:12px}.secondary{background:#e9e6ff;color:#302078;border:0;border-radius:9px;padding:10px 12px;font-weight:bold;cursor:pointer}
+.owner-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0;padding:12px;background:#f7f7fc;border-radius:10px}
+.owner-row small{display:block;color:var(--muted);margin-top:4px}
+.hidden{display:none!important}
+footer{background:#17152a;color:#fff;padding:26px 20px;text-align:center;font-size:13px}
+@media(max-width:700px){.hero{margin:16px 14px;padding:28px 20px}.categories,.products{grid-template-columns:repeat(2,1fr)}main{padding:0 14px 30px}.top{gap:10px}.logo{width:100%}.formgrid{grid-template-columns:1fr}}
+@media(max-width:380px){.products{gap:10px}.product{padding:10px}.photo{height:100px}}
+</style></head>
+<body>
+<header><div class="top">
+<div class="logo">MEGACART</div>
+<div class="search"><input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products"><button onclick="searchProducts()">Search</button></div>
+<button class="cart" onclick="showCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+<button class="owner-link" onclick="toggleOwner()">⚙ Owner</button>
+</div><nav><a href="#">Home</a><a href="#categories">Categories</a><a href="#products">Products</a><a href="#about">About</a><a href="#ownerPanel" onclick="toggleOwner(true)">Owner Dashboard</a></nav></header>
+<section class="hero"><div><span class="tag">WELCOME TO MEGACART</span><h1>Shopping made simple.</h1><p>Discover everyday essentials, electronics, fashion and more — all in one place.</p></div><div class="emoji" aria-hidden="true">🛍️</div></section>
+<main>
+<div class="section-head" id="categories"><h2>Shop by Category</h2><span>Explore MEGACART</span></div>
+<div class="categories"><div class="category"><b>📱</b>Electronics</div><div class="category"><b>👕</b>Fashion</div><div class="category"><b>🏠</b>Home</div><div class="category"><b>🧴</b>Daily Needs</div></div>
+<div class="section-head" id="products"><h2>Featured Products</h2><span>Products in your store</span></div>
+<div class="products" id="productGrid"></div>
+<section class="panel hidden" id="ownerPanel">
+<h2>⚙ MEGACART Owner Dashboard</h2>
+<p style="color:#667085;font-size:14px">Add products, update prices, and remove demo products. Changes are saved in this browser only.</p>
+<div class="formgrid">
+<input id="ownerName" placeholder="Product name">
+<input id="ownerPrice" type="number" min="1" placeholder="Price in ₹">
+<input id="ownerEmoji" placeholder="Product emoji (e.g. 📱)" maxlength="4">
+<select id="ownerCategory"><option>Electronics</option><option>Fashion</option><option>Home</option><option>Daily Needs</option><option>Other</option></select>
+</div>
+<button class="primary" onclick="addProduct()">＋ Add Product</button>
+<div id="ownerMessage" role="status" style="font-size:13px;color:#5b45d6;margin-top:10px"></div>
+<h3>Manage Products</h3><div id="ownerProductList"></div>
+</section>
+<div class="notice" id="about"><strong>About MEGACART</strong><br>This is an initial demo store. Products and cart are for demonstration. The owner dashboard saves changes only in this browser; it is not a secure online admin system. Before accepting real orders or payments, connect a secure database, owner login, payment provider and delivery process.</div>
+</main><footer>© 2026 MEGACART. All rights reserved.<br>Your Online Shopping Store</footer>
+<script>
+const starterProducts=[
+{id:1,name:'Wireless Headphones',price:1499,emoji:'🎧',category:'Electronics'},
+{id:2,name:'Smart Watch',price:2299,emoji:'⌚',category:'Electronics'},
+{id:3,name:'Casual T-Shirt',price:599,emoji:'👕',category:'Fashion'},
+{id:4,name:'Everyday Backpack',price:999,emoji:'🎒',category:'Fashion'}
+];
+let products;
+try{products=JSON.parse(localStorage.getItem('megacartProducts'))||starterProducts}catch(e){products=starterProducts}
+let cart=[];
+function saveProducts(){localStorage.setItem('megacartProducts',JSON.stringify(products))}
+function renderProducts(){
+ const q=(document.getElementById('searchInput').value||'').toLowerCase();
+ document.getElementById('productGrid').innerHTML=products.filter(p=>(p.name+' '+p.category).toLowerCase().includes(q)).map(p=>
+ `<article class="product"><div class="photo">${escapeHtml(p.emoji||'🛍️')}</div><h3>${escapeHtml(p.name)}</h3><div class="price">₹${Number(p.price).toLocaleString('en-IN')}</div><button onclick="addToCart(${p.id})">Add to Cart</button></article>`
+ ).join('')||'<p>No products found.</p>';
+ renderOwnerList();
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addToCart(id){let p=products.find(x=>x.id===id);if(!p)return;cart.push(p);document.getElementById('cartCount').textContent=cart.length;alert(p.name+' added to your demo cart.')}
+function showCart(){if(!cart.length){alert('Your cart is empty.');return}let total=cart.reduce((s,p)=>s+Number(p.price),0);alert('Your demo cart:\\n'+cart.map(p=>p.name+' - ₹'+p.price).join('\\n')+'\\nTotal: ₹'+total)}
+function searchProducts(){renderProducts()}
+function toggleOwner(force){let el=document.getElementById('ownerPanel');if(force===true)el.classList.remove('hidden');else el.classList.toggle('hidden');if(!el.classList.contains('hidden'))el.scrollIntoView({behavior:'smooth',block:'start'})}
+function addProduct(){
+ let name=document.getElementById('ownerName').value.trim(),price=Number(document.getElementById('ownerPrice').value),emoji=document.getElementById('ownerEmoji').value.trim()||'🛍️',category=document.getElementById('ownerCategory').value;
+ if(!name||!Number.isFinite(price)||price<=0){document.getElementById('ownerMessage').textContent='Please enter a product name and a valid price.';return}
+ products.push({id:Date.now(),name,price,emoji,category});saveProducts();renderProducts();
+ document.getElementById('ownerName').value='';document.getElementById('ownerPrice').value='';document.getElementById('ownerEmoji').value='';
+ document.getElementById('ownerMessage').textContent='Product added to this browser successfully.';
+}
+function renderOwnerList(){
+ let box=document.getElementById('ownerProductList');if(!box)return;
+ box.innerHTML=products.map(p=>`<div class="owner-row"><div><strong>${escapeHtml(p.emoji)} ${escapeHtml(p.name)}</strong><small>₹${Number(p.price).toLocaleString('en-IN')} · ${escapeHtml(p.category)}</small></div><button class="secondary" onclick="removeProduct(${p.id})">Delete</button></div>`).join('')||'<p>No products added yet.</p>';
+}
+function removeProduct(id){if(!confirm('Remove this product?'))return;products=products.filter(p=>p.id!==id);saveProducts();renderProducts()}
+renderProducts();
+</script></body></html>
